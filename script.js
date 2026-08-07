@@ -2,6 +2,7 @@
   "use strict";
 
   var data = (typeof UMKM_DATA !== "undefined") ? UMKM_DATA : [];
+  var profile = (typeof KELURAHAN_PROFILE !== "undefined") ? KELURAHAN_PROFILE : null;
 
   /* ---------------- Nav toggle (mobile) ---------------- */
   var navToggle = document.getElementById("navToggle");
@@ -40,14 +41,13 @@
       var target = parseInt(el.getAttribute("data-count"), 10) || 0;
       var current = 0;
       var step = Math.max(1, Math.ceil(target / 40));
-      var suffix = el.textContent.includes("%") ? "" : "";
       var timer = setInterval(function () {
         current += step;
         if (current >= target) {
           current = target;
           clearInterval(timer);
         }
-        el.textContent = current;
+        el.textContent = current.toLocaleString("id-ID");
       }, 25);
     });
   }
@@ -69,27 +69,127 @@
   /* ---------------- Helpers ---------------- */
   function titleCase(str) {
     if (!str) return "";
-    return str.toLowerCase().replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    return String(str).toLowerCase().replace(/\b\w/g, function (c) { return c.toUpperCase(); });
   }
-
-  function jenisList(jenisUsahaRaw) {
-    return (jenisUsahaRaw || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+  function esc(str) {
+    var d = document.createElement("div");
+    d.textContent = str == null ? "" : String(str);
+    return d.innerHTML;
   }
-
-  function tagClass(jenis) {
-    var j = jenis.toUpperCase();
+  function tagClass(kategori) {
+    var j = (kategori || "").toUpperCase();
     if (j.indexOf("KULINER") > -1) return "tag-kuliner";
     if (j.indexOf("PERDAGANGAN") > -1) return "tag-perdagangan";
     if (j.indexOf("KERAJINAN") > -1) return "tag-kerajinan";
     return "tag-jasa";
   }
 
-  function lingkungan(alamat) {
-    var m = (alamat || "").match(/Lingkungan\s*\d+/i);
-    return m ? m[0] : "";
+  /* ================================================================
+     PROFIL KELURAHAN
+     ================================================================ */
+  if (profile) {
+    // Batas wilayah
+    var compassGrid = document.getElementById("compassGrid");
+    if (compassGrid) {
+      compassGrid.innerHTML = profile.batasWilayah.map(function (b) {
+        return '<div class="compass-item"><div class="dir">' + esc(b.arah) + '</div><div class="place">' + esc(b.wilayah) + '</div></div>';
+      }).join("");
+    }
+
+    // Kependudukan
+    var popGrid = document.getElementById("popGrid");
+    if (popGrid) {
+      var pop = profile.kependudukan;
+      var popItems = [
+        [pop.totalJiwa, "Total Jiwa"],
+        [pop.lakiLaki, "Laki-laki"],
+        [pop.perempuan, "Perempuan"],
+        [pop.jumlahKK, "Kepala Keluarga"]
+      ];
+      popGrid.innerHTML = popItems.map(function (p) {
+        return '<div class="pop-item"><div class="n">' + p[0].toLocaleString("id-ID") + '</div><div class="l">' + p[1] + '</div></div>';
+      }).join("");
+    }
+
+    // Sarana & prasarana
+    var saranaGroups = document.getElementById("saranaGroups");
+    if (saranaGroups) {
+      var groupTitles = { pendidikan: "Pendidikan", kesehatan: "Kesehatan", keagamaan: "Keagamaan" };
+      saranaGroups.innerHTML = Object.keys(profile.sarana).map(function (key) {
+        var rows = profile.sarana[key].map(function (item) {
+          return '<div class="sarana-row"><span>' + esc(item.label) + '</span><span class="n">' + item.jumlah + '</span></div>';
+        }).join("");
+        return '<div class="sarana-group"><h4>' + groupTitles[key] + '</h4>' + rows + '</div>';
+      }).join("");
+    }
+
+    // Visi & misi
+    var visiText = document.getElementById("visiText");
+    if (visiText) visiText.textContent = "\u201C" + profile.visi + "\u201D";
+    var misiList = document.getElementById("misiList");
+    if (misiList) {
+      misiList.innerHTML = profile.misi.map(function (m, i) {
+        return '<li><span class="idx">' + String(i + 1).padStart(2, "0") + '</span><span>' + esc(m) + '</span></li>';
+      }).join("");
+    }
+
+    // Inovasi
+    var inovasiGrid = document.getElementById("inovasiGrid");
+    if (inovasiGrid) {
+      inovasiGrid.innerHTML = profile.inovasi.map(function (item) {
+        return '<div class="inovasi-card"><h4>' + esc(item.judul) + '</h4><p>' + esc(item.desc) + '</p></div>';
+      }).join("");
+    }
+
+    // Struktur organisasi
+    var orgWrap = document.getElementById("orgWrap");
+    if (orgWrap) {
+      var s = profile.struktur;
+
+      function orgCard(person, opts) {
+        opts = opts || {};
+        var cls = "org-card" + (opts.top ? " top" : "");
+        var idBadge = person.nip ? '<div class="nip">NIP. ' + esc(person.nip) + '</div>' : (person.nrp ? '<div class="nip">NRP. ' + esc(person.nrp) + '</div>' : "");
+        return '<div class="' + cls + '"><div class="jabatan">' + esc(person.jabatan || opts.jabatan || "") + '</div><div class="nama">' + esc(person.nama) + '</div>' + idBadge + '</div>';
+      }
+
+      var html = "";
+      html += '<div class="org-lurah">' + orgCard(s.lurah, { top: true, jabatan: "Lurah" }) + '</div>';
+      html += '<div class="org-sekretariat">' + orgCard(s.sekretaris, { jabatan: "Sekretaris Lurah" });
+      s.sekretaris.staff.forEach(function (st) {
+        html += '<div class="org-staff" style="margin-top:10px;">' + orgCard(st, { jabatan: "Staff" }) + '</div>';
+      });
+      html += '</div>';
+
+      html += '<div class="org-branch">';
+      s.kasi.forEach(function (k) {
+        html += '<div class="org-col">' + orgCard(k);
+        k.staff.forEach(function (st) {
+          html += '<div class="org-staff">' + orgCard(st, { jabatan: "Staff" }) + '</div>';
+        });
+        html += '</div>';
+      });
+      html += '</div>';
+
+      html += '<div class="ling-row">';
+      s.kepalaLingkungan.forEach(function (l) {
+        html += orgCard(l);
+      });
+      html += '</div>';
+
+      html += '<div class="unsur-grid">';
+      s.unsurPendukung.forEach(function (u) {
+        html += '<div class="unsur-item"><div class="jabatan">' + esc(u.jabatan) + '</div><div class="nama">' + esc(u.nama) + '</div></div>';
+      });
+      html += '</div>';
+
+      orgWrap.innerHTML = html;
+    }
   }
 
-  /* ---------------- Directory rendering ---------------- */
+  /* ================================================================
+     DIREKTORI UMKM
+     ================================================================ */
   var grid = document.getElementById("umkmGrid");
   var emptyState = document.getElementById("emptyState");
   var resultCount = document.getElementById("resultCount");
@@ -99,21 +199,31 @@
 
   function populateJenisFilter() {
     var set = new Set();
-    data.forEach(function (d) { jenisList(d.jenis_usaha).forEach(function (j) { set.add(j); }); });
+    data.forEach(function (d) { if (d.kategori) set.add(d.kategori); });
     Array.from(set).sort().forEach(function (j) {
       var opt = document.createElement("option");
       opt.value = j;
-      opt.textContent = titleCase(j);
+      opt.textContent = j;
       filterJenis.appendChild(opt);
     });
   }
 
-  function renderCard(d) {
-    var card = document.createElement("article");
-    card.className = "umkm-card";
+  function legalLabel(status) {
+    if (status === "lengkap") return "Legalitas Lengkap";
+    if (status === "sebagian") return "Legalitas Sebagian";
+    return "Belum Berlegalitas";
+  }
+  function legalChipClass(status) {
+    if (status === "lengkap") return "chip legal";
+    if (status === "sebagian") return "chip legal";
+    return "chip nolegal";
+  }
 
-    var jenisArr = jenisList(d.jenis_usaha);
-    var primaryJenis = jenisArr[0] || "Lainnya";
+  function renderCard(d, idx) {
+    var card = document.createElement("button");
+    card.type = "button";
+    card.className = "umkm-card";
+    card.setAttribute("data-idx", idx);
 
     var top = document.createElement("div");
     top.className = "umkm-card-top";
@@ -126,50 +236,43 @@
     titleWrap.appendChild(h3);
     titleWrap.appendChild(owner);
     var tag = document.createElement("span");
-    tag.className = "tag " + tagClass(primaryJenis);
-    tag.textContent = titleCase(primaryJenis);
+    tag.className = "tag " + tagClass(d.kategori);
+    tag.textContent = d.kategori || "Lainnya";
     top.appendChild(titleWrap);
     top.appendChild(tag);
     card.appendChild(top);
 
     var addr = document.createElement("p");
     addr.className = "addr";
-    var ling = lingkungan(d.alamat);
-    addr.textContent = ling ? ("Majjelling Wattang · " + ling) : "Majjelling Wattang";
+    addr.textContent = (d.produk ? d.produk : "Majjelling Wattang") + (d.lingkungan ? " · " + d.lingkungan : "");
     card.appendChild(addr);
 
     var metaRow = document.createElement("div");
     metaRow.className = "meta-row";
-
-    if (d.tahun_berdiri && !isNaN(parseInt(d.tahun_berdiri, 10))) {
+    if (d.tahun_berdiri_num) {
       var chipYear = document.createElement("span");
       chipYear.className = "chip";
-      chipYear.textContent = "Berdiri " + d.tahun_berdiri;
+      chipYear.textContent = "Berdiri " + d.tahun_berdiri_num;
       metaRow.appendChild(chipYear);
     }
-    if (d.tenaga_kerja) {
-      var chipTk = document.createElement("span");
-      chipTk.className = "chip";
-      chipTk.textContent = titleCase(d.tenaga_kerja);
-      metaRow.appendChild(chipTk);
-    }
-    if (d.omzet) {
+    if (d.omzet_display) {
       var chipOm = document.createElement("span");
       chipOm.className = "chip";
-      chipOm.textContent = d.omzet.replace(/Rp/g, "Rp ");
+      chipOm.textContent = d.omzet_display;
       metaRow.appendChild(chipOm);
     }
     var chipLegal = document.createElement("span");
-    if (d.legalitas) {
-      chipLegal.className = "chip legal";
-      chipLegal.textContent = d.legalitas;
-    } else {
-      chipLegal.className = "chip nolegal";
-      chipLegal.textContent = "Belum Berlegalitas";
-    }
+    chipLegal.className = legalChipClass(d.legalitas_status);
+    chipLegal.textContent = legalLabel(d.legalitas_status);
     metaRow.appendChild(chipLegal);
-
     card.appendChild(metaRow);
+
+    var viewMore = document.createElement("span");
+    viewMore.className = "view-more";
+    viewMore.innerHTML = 'Lihat profil lengkap <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
+    card.appendChild(viewMore);
+
+    card.addEventListener("click", function () { openModal(d); });
     return card;
   }
 
@@ -181,15 +284,18 @@
     var filtered = data.filter(function (d) {
       var matchesQ = !q ||
         d.nama_usaha.toLowerCase().indexOf(q) > -1 ||
-        (d.pemilik || "").toLowerCase().indexOf(q) > -1;
-      var matchesJenis = !jenisVal || jenisList(d.jenis_usaha).indexOf(jenisVal) > -1;
-      var matchesLegal = !legalVal ||
-        (legalVal === "ada" ? !!d.legalitas : !d.legalitas);
+        (d.pemilik || "").toLowerCase().indexOf(q) > -1 ||
+        (d.produk || "").toLowerCase().indexOf(q) > -1;
+      var matchesJenis = !jenisVal || d.kategori === jenisVal;
+      var matchesLegal = !legalVal || d.legalitas_status === legalVal;
       return matchesQ && matchesJenis && matchesLegal;
     });
 
     grid.innerHTML = "";
-    filtered.forEach(function (d) { grid.appendChild(renderCard(d)); });
+    filtered.forEach(function (d) {
+      var realIdx = data.indexOf(d);
+      grid.appendChild(renderCard(d, realIdx));
+    });
     resultCount.textContent = filtered.length + " usaha ditemukan";
     emptyState.hidden = filtered.length !== 0;
   }
@@ -202,7 +308,88 @@
     filterLegal.addEventListener("change", applyFilters);
   }
 
-  /* ---------------- Statistics charts (built with plain DOM, no libs) ---------------- */
+  /* ---------------- Modal detail UMKM ---------------- */
+  var modalOverlay = document.getElementById("modalOverlay");
+  var modalClose = document.getElementById("modalClose");
+  var modalTag = document.getElementById("modalTag");
+  var modalTitle = document.getElementById("modalTitle");
+  var modalOwner = document.getElementById("modalOwner");
+  var modalBody = document.getElementById("modalBody");
+  var lastFocused = null;
+
+  var ALL_LEGAL_KEYS = ["NIB", "NPWP", "PIRT", "Sertifikat Halal", "Merek Dagang"];
+
+  function openModal(d) {
+    lastFocused = document.activeElement;
+    modalTag.className = "tag " + tagClass(d.kategori);
+    modalTag.textContent = d.kategori || "Lainnya";
+    modalTitle.textContent = d.nama_usaha;
+    modalOwner.textContent = titleCase(d.pemilik) + (d.gender ? " · " + titleCase(d.gender) : "");
+
+    var have = d.legalitas_dimiliki || [];
+    var badges = ALL_LEGAL_KEYS.map(function (key) {
+      var owned = have.indexOf(key) > -1;
+      return '<span class="legal-badge ' + (owned ? "yes" : "no") + '">' + (owned ? "✓" : "✕") + " " + key + "</span>";
+    }).join("");
+
+    var mapsBtn = d.maps_url
+      ? '<a class="maps-link" href="' + esc(d.maps_url) + '" target="_blank" rel="noopener">📍 Lihat di Google Maps</a>'
+      : '<p style="color:#7a8579;">Titik lokasi belum tercantum.</p>';
+
+    modalBody.innerHTML =
+      '<div class="modal-section">' +
+        '<h4>Profil Usaha</h4>' +
+        '<div class="modal-facts">' +
+          '<div class="modal-fact"><div class="k">Jenis Usaha</div><div class="v">' + esc(d.jenis_usaha) + '</div></div>' +
+          '<div class="modal-fact"><div class="k">Produk / Menu</div><div class="v">' + esc(d.produk) + '</div></div>' +
+          '<div class="modal-fact"><div class="k">Tahun Berdiri</div><div class="v">' + esc(d.tahun_berdiri) + '</div></div>' +
+          '<div class="modal-fact"><div class="k">Tenaga Kerja</div><div class="v">' + esc(titleCase(d.tenaga_kerja)) + '</div></div>' +
+          '<div class="modal-fact"><div class="k">Omzet / Bulan</div><div class="v">' + esc(d.omzet_display) + '</div></div>' +
+          '<div class="modal-fact"><div class="k">Lingkungan</div><div class="v">' + esc(d.lingkungan || "-") + '</div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="modal-section">' +
+        '<h4>Alamat &amp; Lokasi</h4>' +
+        '<p>' + esc(d.alamat) + '</p>' +
+        '<div style="margin-top:10px;">' + mapsBtn + '</div>' +
+      '</div>' +
+      '<div class="modal-section">' +
+        '<h4>Legalitas Usaha</h4>' +
+        '<div class="legal-badges">' + badges + '</div>' +
+      '</div>' +
+      '<div class="modal-section">' +
+        '<h4>Pemasaran</h4>' +
+        '<p>' + esc(d.pemasaran_narasi) + '</p>' +
+      '</div>' +
+      '<div class="modal-section">' +
+        '<h4>Kondisi &amp; Pengembangan Usaha</h4>' +
+        '<p>' + esc(d.kondisi_narasi) + '</p>' +
+      '</div>';
+
+    modalOverlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    modalClose.focus();
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove("open");
+    document.body.style.overflow = "";
+    if (lastFocused) lastFocused.focus();
+  }
+
+  if (modalOverlay) {
+    modalClose.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", function (e) {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modalOverlay.classList.contains("open")) closeModal();
+    });
+  }
+
+  /* ================================================================
+     STATISTIK (grafik DOM/SVG, tanpa library eksternal)
+     ================================================================ */
   var PALETTE = ["#C9A227", "#A6472F", "#4F7C8C", "#2F4A37", "#8a6b12", "#6d8a76"];
 
   function countBy(list, keyFn) {
@@ -217,8 +404,10 @@
     return map;
   }
 
-  function renderBarChart(container, map, total) {
-    var entries = Object.entries(map).sort(function (a, b) { return b[1] - a[1]; });
+  function renderBarChart(container, map, total, orderKeys) {
+    var entries = orderKeys
+      ? orderKeys.filter(function (k) { return map[k]; }).map(function (k) { return [k, map[k]]; })
+      : Object.keys(map).map(function (k) { return [k, map[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
     container.innerHTML = "";
     entries.forEach(function (entry, i) {
       var label = entry[0], count = entry[1];
@@ -226,7 +415,7 @@
       var row = document.createElement("div");
       row.className = "bar-row";
       row.innerHTML =
-        '<span class="label">' + titleCase(label) + '</span>' +
+        '<span class="label">' + esc(label) + '</span>' +
         '<span class="bar-track"><span class="bar-fill" style="width:0%"></span></span>' +
         '<span class="val">' + count + '</span>';
       container.appendChild(row);
@@ -237,7 +426,7 @@
   }
 
   function renderDonut(container, map, total) {
-    var entries = Object.entries(map).sort(function (a, b) { return b[1] - a[1]; });
+    var entries = Object.keys(map).map(function (k) { return [k, map[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
     var r = 52, cx = 60, cy = 60, circumference = 2 * Math.PI * r;
     var offset = 0;
     var svgParts = [];
@@ -261,7 +450,7 @@
     var legend = '<ul class="donut-legend">' + entries.map(function (entry, i) {
       var pct = Math.round((entry[1] / total) * 100);
       return '<li><span class="dot" style="background:' + PALETTE[i % PALETTE.length] + '"></span>' +
-        titleCase(entry[0]) + ' — ' + entry[1] + ' (' + pct + '%)</li>';
+        esc(entry[0]) + ' — ' + entry[1] + ' (' + pct + '%)</li>';
     }).join("") + '</ul>';
 
     container.innerHTML = svg + legend;
@@ -270,38 +459,21 @@
   if (data.length) {
     var total = data.length;
 
-    var jenisMap = countBy(data, function (d) { return jenisList(d.jenis_usaha); });
-    renderBarChart(document.getElementById("chartJenis"), jenisMap, total);
+    var kategoriMap = countBy(data, function (d) { return d.kategori; });
+    var chartJenisEl = document.getElementById("chartJenis");
+    if (chartJenisEl) renderBarChart(chartJenisEl, kategoriMap, total);
 
     var genderMap = countBy(data, function (d) { return d.gender; });
-    renderDonut(document.getElementById("chartGender"), genderMap, total);
+    var chartGenderEl = document.getElementById("chartGender");
+    if (chartGenderEl) renderDonut(chartGenderEl, genderMap, total);
 
-    var omzetOrder = ["<Rp1.000.000", "Rp1.000.000-5.000.000", "Rp5.000.000-Rp10.000.000", ">Rp10.000.000"];
-    var omzetMap = countBy(data, function (d) { return d.omzet; });
-    var orderedOmzet = {};
-    omzetOrder.forEach(function (k) { if (omzetMap[k]) orderedOmzet[k] = omzetMap[k]; });
-    Object.keys(omzetMap).forEach(function (k) { if (!(k in orderedOmzet)) orderedOmzet[k] = omzetMap[k]; });
-    var omzetContainer = document.getElementById("chartOmzet");
-    omzetContainer.innerHTML = "";
-    Object.entries(orderedOmzet).forEach(function (entry, i) {
-      var pct = Math.round((entry[1] / total) * 100);
-      var row = document.createElement("div");
-      row.className = "bar-row";
-      row.innerHTML =
-        '<span class="label">' + entry[0].replace("Rp", "Rp ") + '</span>' +
-        '<span class="bar-track"><span class="bar-fill" style="width:0%"></span></span>' +
-        '<span class="val">' + entry[1] + '</span>';
-      omzetContainer.appendChild(row);
-      setTimeout(function () {
-        row.querySelector(".bar-fill").style.width = pct + "%";
-      }, 60 + i * 60);
-    });
+    var omzetOrder = ["< Rp1.000.000", "Rp1.000.000 – Rp5.000.000", "Rp5.000.000 – Rp10.000.000", "> Rp10.000.000"];
+    var omzetMap = countBy(data, function (d) { return d.omzet_kategori; });
+    var chartOmzetEl = document.getElementById("chartOmzet");
+    if (chartOmzetEl) renderBarChart(chartOmzetEl, omzetMap, total, omzetOrder);
 
-    var mediaMap = countBy(data, function (d) {
-      return (d.media_digital || "").split(",").map(function (s) { return s.trim(); });
-    });
-    renderBarChart(document.getElementById("chartMedia"), mediaMap, total);
+    var legalMap = countBy(data, function (d) { return legalLabel(d.legalitas_status); });
+    var chartLegalEl = document.getElementById("chartLegal");
+    if (chartLegalEl) renderDonut(chartLegalEl, legalMap, total);
   }
-
-  /* ---------------- Reveal charts when scrolled into view ---------------- */
 })();

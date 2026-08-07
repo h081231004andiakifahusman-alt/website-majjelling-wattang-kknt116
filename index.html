@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kelurahan Majjelling Wattang — UMKM Lokal</title>
-<meta name="description" content="Profil dan direktori UMKM Kelurahan Majjelling Wattang, Kecamatan Maritengngae, Kabupaten Sidenreng Rappang, Sulawesi Selatan.">
+<title>Kelurahan Majjelling Wattang — Profil &amp; UMKM</title>
+<meta name="description" content="Profil resmi dan direktori UMKM Kelurahan Majjelling Wattang, Kecamatan Maritengngae, Kabupaten Sidenreng Rappang, Sulawesi Selatan.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -55,10 +55,10 @@
     <div>
       <span class="eyebrow">Kelurahan Majjelling Wattang</span>
       <h1>Menumbuhkan usaha warga,<br><em>seperti padi menumbuhkan sawah.</em></h1>
-      <p class="lede">Portal resmi data dan direktori Usaha Mikro, Kecil, dan Menengah (UMKM) Kelurahan Majjelling Wattang, Kecamatan Maritengngae, Kabupaten Sidenreng Rappang — dari toko kelontong, kuliner rumahan, hingga kerajinan warga.</p>
+      <p class="lede">Portal resmi profil dan direktori Usaha Mikro, Kecil, dan Menengah (UMKM) Kelurahan Majjelling Wattang, Kecamatan Maritengngae, Kabupaten Sidenreng Rappang — dari toko kelontong, kuliner rumahan, hingga kerajinan warga.</p>
       <div class="hero-cta">
         <a href="#umkm" class="btn btn-primary">Jelajahi Direktori UMKM</a>
-        <a href="#statistik" class="btn btn-ghost">Lihat Statistik</a>
+        <a href="#profil" class="btn btn-ghost">Profil Kelurahan</a>
       </div>
     </div>
     <div class="signboard">
@@ -69,15 +69,15 @@
         </div>
         <div class="stat-block">
           <div class="stat-num" data-count="4">0</div>
-          <div class="stat-label">Jenis Usaha</div>
+          <div class="stat-label">Kategori Usaha</div>
         </div>
         <div class="stat-block">
           <div class="stat-num" data-count="77">0</div>
           <div class="stat-label">% Dijalankan Perempuan</div>
         </div>
         <div class="stat-block">
-          <div class="stat-num" data-count="16">0</div>
-          <div class="stat-label">Usaha Berlegalitas</div>
+          <div class="stat-num" data-count="4684">0</div>
+          <div class="stat-label">Jiwa Penduduk</div>
         </div>
       </div>
     </div>
@@ -96,42 +96,66 @@
     <div class="section-head">
       <span class="eyebrow">Tentang Kelurahan</span>
       <h2>Profil Majjelling Wattang</h2>
-      <p>Mengenal wilayah dan denyut ekonomi warga dari data UMKM yang tercatat.</p>
+      <p>Mengenal wilayah, pemerintahan, dan denyut ekonomi warga Kelurahan Majjelling Wattang.</p>
     </div>
 
     <div class="profile-grid">
       <div>
-        <p>Majjelling Wattang adalah kelurahan di Kecamatan Maritengngae, Kabupaten Sidenreng Rappang (Sidrap), Provinsi Sulawesi Selatan. Sidrap dikenal luas sebagai salah satu lumbung padi Sulawesi Selatan, dan denyut ekonomi warganya banyak ditopang oleh usaha rumahan dan perdagangan skala kecil-menengah di tengah lingkungan permukiman dan sawah.</p>
-        <p>Halaman ini menghimpun data UMKM yang tersebar di beberapa lingkungan pada kelurahan, mencakup usaha kuliner, perdagangan, jasa, dan kerajinan warga — sebagai bentuk pendataan dan promosi ekonomi lokal secara digital.</p>
+        <p>Majjelling Wattang adalah kelurahan di Kecamatan Maritengngae, Kabupaten Sidenreng Rappang (Sidrap), Provinsi Sulawesi Selatan, dengan luas wilayah sekitar 403,39 Ha yang terbagi atas 2 lingkungan. Sidrap dikenal luas sebagai salah satu lumbung padi Sulawesi Selatan, dan denyut ekonomi warganya banyak ditopang oleh usaha rumahan dan perdagangan skala kecil-menengah.</p>
+        <p>Kelurahan ini dibentuk berdasarkan Peraturan Daerah Kabupaten Sidenreng Rappang Nomor 15 Tahun 2016 tentang Pembentukan dan Susunan Perangkat Daerah.</p>
       </div>
       <div class="info-card">
-        <dl>
+        <dl id="identitasList">
           <dt>Kelurahan</dt><dd>Majjelling Wattang</dd>
           <dt>Kecamatan</dt><dd>Maritengngae</dd>
           <dt>Kabupaten</dt><dd>Sidenreng Rappang (Sidrap)</dd>
           <dt>Provinsi</dt><dd>Sulawesi Selatan</dd>
-          <dt>Lingkungan</dt><dd>Lingkungan 1 &amp; Lingkungan 2</dd>
-          <dt>UMKM Terdata</dt><dd>35 usaha (per pendataan berjalan)</dd>
+          <dt>Kode Pos</dt><dd>91611</dd>
+          <dt>Luas Wilayah</dt><dd>403,39 Ha</dd>
+          <dt>Lurah</dt><dd>Herman Ompo, S.Pd.</dd>
         </dl>
       </div>
     </div>
 
-    <div class="pillar-grid">
-      <div class="pillar">
-        <span class="num">01</span>
-        <h4>Kuliner Rumahan</h4>
-        <p>Jajanan, minuman, dan makanan rumahan menjadi jenis usaha terbanyak di kelurahan ini.</p>
+    <!-- Batas wilayah -->
+    <div style="margin-top:52px;">
+      <h3 style="font-size:1.15rem;">Batas Wilayah</h3>
+      <div class="compass-grid" id="compassGrid"></div>
+    </div>
+
+    <!-- Kependudukan -->
+    <div style="margin-top:44px;">
+      <h3 style="font-size:1.15rem;">Data Kependudukan</h3>
+      <div class="pop-grid" id="popGrid"></div>
+    </div>
+
+    <!-- Sarana Prasarana -->
+    <div style="margin-top:44px;">
+      <h3 style="font-size:1.15rem;">Sarana &amp; Prasarana</h3>
+      <div class="sarana-groups" id="saranaGroups"></div>
+    </div>
+
+    <!-- Visi Misi -->
+    <div class="visi-card">
+      <h4>Visi</h4>
+      <p class="visi-text" id="visiText"></p>
+      <h4>Misi</h4>
+      <ul class="misi-list" id="misiList"></ul>
+    </div>
+
+    <!-- Inovasi -->
+    <div style="margin-top:48px;">
+      <h3 style="font-size:1.15rem;">Inovasi Kelurahan</h3>
+      <div class="inovasi-grid" id="inovasiGrid"></div>
+    </div>
+
+    <!-- Struktur Organisasi -->
+    <div style="margin-top:56px;">
+      <div class="section-head" style="margin-bottom:8px;">
+        <span class="eyebrow">Pemerintahan</span>
+        <h3 style="font-family:var(--font-display); font-size:1.5rem; margin-top:0.4em;">Struktur Organisasi</h3>
       </div>
-      <div class="pillar">
-        <span class="num">02</span>
-        <h4>Perdagangan Warga</h4>
-        <p>Toko kelontong dan warung menjadi tulang punggung kebutuhan sehari-hari lingkungan.</p>
-      </div>
-      <div class="pillar">
-        <span class="num">03</span>
-        <h4>Perempuan Penggerak Usaha</h4>
-        <p>Sebagian besar UMKM di kelurahan ini dijalankan dan dipimpin oleh perempuan.</p>
-      </div>
+      <div class="org-wrap" id="orgWrap"></div>
     </div>
   </div>
 </section>
@@ -148,20 +172,21 @@
     <div class="section-head">
       <span class="eyebrow">Direktori Usaha</span>
       <h2>Data UMKM Majjelling Wattang</h2>
-      <p>Cari dan telusuri usaha warga berdasarkan nama, jenis usaha, atau lingkungan.</p>
+      <p>Cari, telusuri, dan klik kartu usaha untuk melihat profil lengkapnya — produk, legalitas, pemasaran, hingga lokasi.</p>
     </div>
 
     <div class="directory-toolbar">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Cari nama usaha atau pemilik…" aria-label="Cari UMKM">
+        <input type="text" id="searchInput" placeholder="Cari nama usaha, pemilik, atau produk…" aria-label="Cari UMKM">
       </div>
-      <select class="filter-select" id="filterJenis" aria-label="Filter jenis usaha">
-        <option value="">Semua Jenis Usaha</option>
+      <select class="filter-select" id="filterJenis" aria-label="Filter kategori usaha">
+        <option value="">Semua Kategori</option>
       </select>
       <select class="filter-select" id="filterLegal" aria-label="Filter legalitas">
         <option value="">Semua Status Legalitas</option>
-        <option value="ada">Sudah Berlegalitas</option>
-        <option value="tidak">Belum Berlegalitas</option>
+        <option value="lengkap">Legalitas Lengkap</option>
+        <option value="sebagian">Legalitas Sebagian</option>
+        <option value="belum">Belum Berlegalitas</option>
       </select>
       <span class="result-count" id="resultCount">35 usaha ditemukan</span>
     </div>
@@ -188,7 +213,7 @@
 
     <div class="stats-grid">
       <div class="chart-card">
-        <h3>Jenis Usaha</h3>
+        <h3>Kategori Usaha</h3>
         <div id="chartJenis"></div>
       </div>
       <div class="chart-card">
@@ -200,8 +225,8 @@
         <div id="chartOmzet"></div>
       </div>
       <div class="chart-card">
-        <h3>Media Digital yang Digunakan</h3>
-        <div id="chartMedia"></div>
+        <h3>Status Legalitas Usaha</h3>
+        <div class="donut-wrap" id="chartLegal"></div>
       </div>
     </div>
   </div>
@@ -241,7 +266,7 @@
     <div class="contact-grid">
       <div class="contact-card">
         <h4>Kantor Kelurahan Majjelling Wattang</h4>
-        <p>Kecamatan Maritengngae, Kabupaten Sidenreng Rappang, Sulawesi Selatan</p>
+        <p>Jl. Mawar, Kec. Maritengngae, Kab. Sidenreng Rappang, Sulawesi Selatan 91611</p>
       </div>
       <div class="contact-card">
         <h4>Jam Layanan</h4>
@@ -263,6 +288,20 @@
   </div>
 </footer>
 
+<!-- ===== Modal Detail UMKM ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <button class="modal-close" id="modalClose" aria-label="Tutup">✕</button>
+      <span class="tag" id="modalTag"></span>
+      <h3 id="modalTitle"></h3>
+      <div class="owner" id="modalOwner"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="profile-data.js"></script>
 <script src="data.js"></script>
 <script src="script.js"></script>
 </body>

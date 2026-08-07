@@ -8,22 +8,26 @@
 :root {
   --ink: #1E2A22;
   --sawah: #2F4A37;
-  --sawah-deep: #203327;
+  --sawah-deep: #1A2A20;
   --padi: #C9A227;
   --padi-light: #E4C55C;
   --clay: #A6472F;
   --air: #4F7C8C;
-  --paper: #EFE8D3;
-  --paper-soft: #F6F1E3;
-  --white: #FFFDF7;
-  --line: rgba(47, 74, 55, 0.16);
+  --paper: #F1ECDA;
+  --paper-soft: #F8F4E8;
+  --white: #FFFFFF;
+  --line: rgba(47, 74, 55, 0.13);
 
   --font-display: 'Fraunces', serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 
-  --radius: 14px;
-  --shadow: 0 10px 30px -12px rgba(30, 42, 34, 0.25);
+  --radius-sm: 10px;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --shadow: 0 12px 32px -14px rgba(26, 42, 32, 0.22);
+  --shadow-lift: 0 20px 44px -16px rgba(26, 42, 32, 0.32);
+  --ease: cubic-bezier(.22,.9,.32,1);
 }
 
 * { box-sizing: border-box; }
@@ -115,8 +119,10 @@ header.site-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--sawah-deep);
-  box-shadow: 0 2px 0 var(--padi);
+  background: rgba(26, 42, 32, 0.88);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 8px 24px -12px rgba(0,0,0,0.35);
 }
 .nav-wrap {
   display: flex;
@@ -488,7 +494,32 @@ section.tight { padding: 56px 0; }
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
 }
+.umkm-card:hover,
+.umkm-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+  border-color: rgba(201,162,39,0.5);
+  outline: none;
+}
+.umkm-card .view-more {
+  margin-top: auto;
+  padding-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--clay);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.umkm-card .view-more svg { width: 13px; height: 13px; transition: transform 0.2s var(--ease); }
+.umkm-card:hover .view-more svg { transform: translateX(3px); }
 .umkm-card-top {
   display: flex;
   justify-content: space-between;
@@ -694,15 +725,441 @@ footer.site-footer {
   clip: rect(0,0,0,0);
 }
 
+/* ============ Batas wilayah compass ============ */
+.compass-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+.compass-item {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px 14px;
+  text-align: center;
+}
+.compass-item .dir {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-weight: 700;
+}
+.compass-item .place {
+  font-weight: 700;
+  color: var(--sawah-deep);
+  margin-top: 6px;
+  font-size: 0.92rem;
+}
+
+/* ============ Kependudukan mini stats ============ */
+.pop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+.pop-item {
+  background: linear-gradient(160deg, var(--sawah-deep), var(--sawah));
+  border-radius: var(--radius-sm);
+  padding: 18px 14px;
+  text-align: center;
+  color: var(--white);
+}
+.pop-item .n {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--padi-light);
+}
+.pop-item .l {
+  font-size: 0.74rem;
+  margin-top: 4px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ============ Sarana & Prasarana ============ */
+.sarana-groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 16px;
+}
+.sarana-group {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.sarana-group h4 {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  color: var(--sawah-deep);
+}
+.sarana-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.88rem;
+}
+.sarana-row:last-child { border-bottom: none; }
+.sarana-row .n {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--clay);
+}
+
+/* ============ Visi Misi ============ */
+.visi-card {
+  background: linear-gradient(155deg, var(--sawah-deep), var(--sawah));
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.visi-card::after {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,162,39,0.28), transparent 70%);
+}
+.visi-card h4 {
+  color: var(--padi-light);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.visi-card p.visi-text {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.4;
+  max-width: 62ch;
+  margin: 0 0 22px;
+  position: relative;
+}
+.misi-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  position: relative;
+}
+.misi-list li {
+  display: flex;
+  gap: 12px;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.85);
+  align-items: flex-start;
+}
+.misi-list li .idx {
+  font-family: var(--font-mono);
+  color: var(--padi-light);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ============ Inovasi ============ */
+.inovasi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+.inovasi-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.inovasi-card h4 {
+  font-size: 0.98rem;
+  color: var(--clay);
+  margin-bottom: 6px;
+}
+.inovasi-card p {
+  font-size: 0.86rem;
+  color: #4b5a4f;
+  margin: 0;
+}
+
+/* ============ Struktur Organisasi ============ */
+.org-wrap {
+  margin-top: 20px;
+}
+.org-lurah {
+  max-width: 280px;
+  margin: 0 auto 28px;
+}
+.org-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.org-card.top {
+  background: linear-gradient(155deg, var(--sawah-deep), var(--sawah));
+  color: var(--white);
+  border: none;
+}
+.org-card .jabatan {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-weight: 700;
+}
+.org-card.top .jabatan { color: var(--padi-light); }
+.org-card .nama {
+  font-weight: 700;
+  margin-top: 4px;
+  font-size: 0.92rem;
+  color: var(--sawah-deep);
+}
+.org-card.top .nama { color: var(--white); }
+.org-card .nip {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: #7a8579;
+  margin-top: 3px;
+}
+.org-card.top .nip { color: rgba(255,255,255,0.6); }
+
+.org-branch {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  border-top: 2px solid var(--padi);
+  padding-top: 24px;
+  position: relative;
+}
+.org-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.org-col::before {
+  content: '';
+  width: 2px;
+  height: 16px;
+  background: var(--padi);
+  margin-top: -36px;
+}
+.org-staff {
+  font-size: 0.82rem;
+  width: 100%;
+}
+.org-sekretariat {
+  max-width: 260px;
+  margin: -8px auto 24px;
+}
+
+.ling-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.ling-row .org-card { width: 220px; }
+
+.unsur-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--line);
+}
+.unsur-item {
+  background: var(--paper-soft);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.85rem;
+}
+.unsur-item .jabatan {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--air);
+  font-weight: 700;
+}
+.unsur-item .nama { font-weight: 700; color: var(--sawah-deep); margin-top: 2px; }
+
+/* ============ Modal Detail UMKM ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 28, 22, 0.62);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (min-width: 720px) {
+  .modal-overlay { align-items: center; padding: 24px; }
+}
+.modal-panel {
+  background: var(--paper-soft);
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 24px 24px 0 0;
+  transform: translateY(40px);
+  transition: transform 0.32s var(--ease);
+  position: relative;
+}
+.modal-overlay.open .modal-panel { transform: translateY(0); }
+@media (min-width: 720px) {
+  .modal-panel { border-radius: var(--radius-lg); }
+}
+.modal-header {
+  background: linear-gradient(155deg, var(--sawah-deep), var(--sawah));
+  color: var(--white);
+  padding: 28px 26px 22px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  border: none;
+  color: var(--white);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.26); }
+.modal-header .tag { margin-bottom: 10px; }
+.modal-header h3 {
+  color: var(--white);
+  font-size: 1.5rem;
+  margin: 0 0 4px;
+}
+.modal-header .owner {
+  color: var(--padi-light);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.modal-body { padding: 24px 26px 32px; }
+.modal-section { margin-bottom: 22px; }
+.modal-section:last-child { margin-bottom: 0; }
+.modal-section h4 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.modal-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+}
+.modal-fact .k {
+  font-size: 0.7rem;
+  color: var(--sawah);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.modal-fact .v {
+  font-size: 0.92rem;
+  color: var(--ink);
+  font-weight: 600;
+  margin-top: 2px;
+}
+.modal-body p {
+  font-size: 0.92rem;
+  color: #3c483f;
+  margin: 0;
+  line-height: 1.6;
+}
+.legal-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.legal-badge {
+  font-size: 0.76rem;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.legal-badge.yes { background: rgba(47,74,55,0.12); color: var(--sawah); }
+.legal-badge.no { background: rgba(166,71,47,0.1); color: var(--clay); }
+.maps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--air);
+  color: var(--white);
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.86rem;
+  margin-top: 4px;
+}
+.maps-link:hover { filter: brightness(1.08); }
+
 @media (max-width: 900px) {
   .hero .container { grid-template-columns: 1fr; }
   .profile-grid { grid-template-columns: 1fr; }
   .pillar-grid { grid-template-columns: 1fr 1fr; }
   .stats-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
+  .sarana-groups { grid-template-columns: 1fr 1fr; }
+  .pop-grid { grid-template-columns: 1fr 1fr; }
+  .compass-grid { grid-template-columns: 1fr 1fr; }
+  .org-branch { grid-template-columns: 1fr; gap: 28px; }
+  .org-col::before { display: none; }
 }
 @media (max-width: 560px) {
   .pillar-grid { grid-template-columns: 1fr; }
   .signboard-grid { grid-template-columns: 1fr 1fr; }
   .bar-row { grid-template-columns: 96px 1fr 40px; }
+  .sarana-groups { grid-template-columns: 1fr; }
+  .pop-grid { grid-template-columns: 1fr 1fr; }
+  .modal-facts { grid-template-columns: 1fr; }
 }
+
