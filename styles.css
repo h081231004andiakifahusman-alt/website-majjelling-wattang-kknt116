@@ -1256,6 +1256,10 @@ footer.site-footer {
   .sarana-groups { grid-template-columns: 1fr; }
   .pop-grid { grid-template-columns: 1fr 1fr; }
   .modal-facts { grid-template-columns: 1fr; }
-  .brand-logos { display: none; }
+  .brand-logos { gap: 4px; padding-right: 8px; }
+  .brand-logos img { height: 18px; padding: 1px; }
+  .brand-text span { display: none; }
+  .brand-text strong { white-space: normal; line-height: 1.15; overflow: visible; text-overflow: clip; }
+  .brand-text { white-space: normal; overflow: visible; }
 }
 
