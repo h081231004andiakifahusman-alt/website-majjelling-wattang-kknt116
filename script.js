@@ -35,6 +35,36 @@
   }
   window.addEventListener("scroll", updateActiveNav, { passive: true });
 
+  /* ---------------- Angka signboard hero: dihitung otomatis dari data.js ---------------- */
+  function fillHeroStatCounts() {
+    if (!data.length) return;
+    var total = data.length;
+
+    var kategoriSet = new Set();
+    data.forEach(function (d) { if (d.kategori) kategoriSet.add(d.kategori); });
+
+    var perempuanCount = data.filter(function (d) {
+      return (d.gender || "").toLowerCase() === "perempuan";
+    }).length;
+    var perempuanPct = Math.round((perempuanCount / total) * 100);
+
+    var legalCount = data.filter(function (d) {
+      return d.legalitas_status && d.legalitas_status !== "belum";
+    }).length;
+
+    var mapping = {
+      statUmkmCount: total,
+      statKategoriCount: kategoriSet.size,
+      statPerempuanPct: perempuanPct,
+      statLegalCount: legalCount
+    };
+    Object.keys(mapping).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.setAttribute("data-count", mapping[id]);
+    });
+  }
+  fillHeroStatCounts();
+
   /* ---------------- Animated counters ---------------- */
   function animateCounters() {
     document.querySelectorAll(".stat-num[data-count]").forEach(function (el) {
