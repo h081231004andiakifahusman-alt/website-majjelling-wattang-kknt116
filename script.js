@@ -133,53 +133,65 @@
       }).join("");
     }
 
-    // Inovasi
-    var inovasiGrid = document.getElementById("inovasiGrid");
-    if (inovasiGrid) {
-      inovasiGrid.innerHTML = profile.inovasi.map(function (item) {
-        return '<div class="inovasi-card"><h4>' + esc(item.judul) + '</h4><p>' + esc(item.desc) + '</p></div>';
-      }).join("");
-    }
-
-    // Struktur organisasi
+    // Struktur organisasi — mengikuti pola garis papan struktur asli:
+    // Lurah di tengah atas; cabang kiri (garis putus-putus) ke Unsur Pendukung;
+    // cabang kanan (garis penuh) ke Sekretaris + staff; garis bawah ke 3 Kasi;
+    // Kepala Lingkungan I & II di bawah Kasi tengah (Pemberdayaan Masyarakat).
     var orgWrap = document.getElementById("orgWrap");
     if (orgWrap) {
       var s = profile.struktur;
 
       function orgCard(person, opts) {
         opts = opts || {};
-        var cls = "org-card" + (opts.top ? " top" : "");
+        var cls = "org-card" + (opts.top ? " top" : "") + (opts.small ? " small" : "");
         var idBadge = person.nip ? '<div class="nip">NIP. ' + esc(person.nip) + '</div>' : (person.nrp ? '<div class="nip">NRP. ' + esc(person.nrp) + '</div>' : "");
         return '<div class="' + cls + '"><div class="jabatan">' + esc(person.jabatan || opts.jabatan || "") + '</div><div class="nama">' + esc(person.nama) + '</div>' + idBadge + '</div>';
       }
 
       var html = "";
-      html += '<div class="org-lurah">' + orgCard(s.lurah, { top: true, jabatan: "Lurah" }) + '</div>';
-      html += '<div class="org-sekretariat">' + orgCard(s.sekretaris, { jabatan: "Sekretaris Lurah" });
-      s.sekretaris.staff.forEach(function (st) {
-        html += '<div class="org-staff" style="margin-top:10px;">' + orgCard(st, { jabatan: "Staff" }) + '</div>';
+
+      /* Baris 1: Unsur pendukung (kiri) —garis putus-putus— Lurah —garis penuh— Sekretariat (kanan) */
+      html += '<div class="org-top">';
+
+      html += '<div class="org-stack org-side">';
+      s.unsurPendukung.forEach(function (u) {
+        html += orgCard(u, { small: true });
       });
       html += '</div>';
 
+      html += '<div class="org-line dashed"></div>';
+      html += '<div class="org-lurah-box">' + orgCard(s.lurah, { top: true, jabatan: "Lurah" }) + '</div>';
+      html += '<div class="org-line solid"></div>';
+
+      html += '<div class="org-stack org-side">';
+      html += orgCard(s.sekretaris, { jabatan: "Sekretaris Lurah" });
+      s.sekretaris.staff.forEach(function (st) {
+        html += orgCard(st, { jabatan: "Staff", small: true });
+      });
+      html += '</div>';
+
+      html += '</div>'; // .org-top
+
+      /* Garis turun dari Lurah ke jajaran Kasi */
+      html += '<div class="org-drop"></div>';
+
+      /* Baris 2: 3 Kasi + staff, garis horizontal penghubung */
       html += '<div class="org-branch">';
-      s.kasi.forEach(function (k) {
+      s.kasi.forEach(function (k, i) {
         html += '<div class="org-col">' + orgCard(k);
         k.staff.forEach(function (st) {
-          html += '<div class="org-staff">' + orgCard(st, { jabatan: "Staff" }) + '</div>';
+          html += '<div class="org-staff">' + orgCard(st, { jabatan: "Staff", small: true }) + '</div>';
         });
+        if (i === 1) {
+          /* Kasi tengah (Pemberdayaan Masyarakat) diteruskan ke Kepala Lingkungan I & II */
+          html += '<div class="org-connector-down"></div>';
+          html += '<div class="ling-row">';
+          s.kepalaLingkungan.forEach(function (l) {
+            html += orgCard(l, { small: true });
+          });
+          html += '</div>';
+        }
         html += '</div>';
-      });
-      html += '</div>';
-
-      html += '<div class="ling-row">';
-      s.kepalaLingkungan.forEach(function (l) {
-        html += orgCard(l);
-      });
-      html += '</div>';
-
-      html += '<div class="unsur-grid">';
-      s.unsurPendukung.forEach(function (u) {
-        html += '<div class="unsur-item"><div class="jabatan">' + esc(u.jabatan) + '</div><div class="nama">' + esc(u.nama) + '</div></div>';
       });
       html += '</div>';
 
@@ -195,6 +207,7 @@
   var resultCount = document.getElementById("resultCount");
   var searchInput = document.getElementById("searchInput");
   var filterJenis = document.getElementById("filterJenis");
+  var filterLingkungan = document.getElementById("filterLingkungan");
   var filterLegal = document.getElementById("filterLegal");
 
   function populateJenisFilter() {
@@ -205,6 +218,17 @@
       opt.value = j;
       opt.textContent = j;
       filterJenis.appendChild(opt);
+    });
+  }
+
+  function populateLingkunganFilter() {
+    var set = new Set();
+    data.forEach(function (d) { if (d.lingkungan) set.add(d.lingkungan); });
+    Array.from(set).sort().forEach(function (l) {
+      var opt = document.createElement("option");
+      opt.value = l;
+      opt.textContent = l;
+      filterLingkungan.appendChild(opt);
     });
   }
 
@@ -279,6 +303,7 @@
   function applyFilters() {
     var q = (searchInput.value || "").toLowerCase().trim();
     var jenisVal = filterJenis.value;
+    var lingkunganVal = filterLingkungan.value;
     var legalVal = filterLegal.value;
 
     var filtered = data.filter(function (d) {
@@ -287,8 +312,9 @@
         (d.pemilik || "").toLowerCase().indexOf(q) > -1 ||
         (d.produk || "").toLowerCase().indexOf(q) > -1;
       var matchesJenis = !jenisVal || d.kategori === jenisVal;
+      var matchesLingkungan = !lingkunganVal || d.lingkungan === lingkunganVal;
       var matchesLegal = !legalVal || d.legalitas_status === legalVal;
-      return matchesQ && matchesJenis && matchesLegal;
+      return matchesQ && matchesJenis && matchesLingkungan && matchesLegal;
     });
 
     grid.innerHTML = "";
@@ -302,9 +328,11 @@
 
   if (grid) {
     populateJenisFilter();
+    populateLingkunganFilter();
     applyFilters();
     searchInput.addEventListener("input", applyFilters);
     filterJenis.addEventListener("change", applyFilters);
+    filterLingkungan.addEventListener("change", applyFilters);
     filterLegal.addEventListener("change", applyFilters);
   }
 
@@ -409,19 +437,16 @@
       ? orderKeys.filter(function (k) { return map[k]; }).map(function (k) { return [k, map[k]]; })
       : Object.keys(map).map(function (k) { return [k, map[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
     container.innerHTML = "";
-    entries.forEach(function (entry, i) {
+    entries.forEach(function (entry) {
       var label = entry[0], count = entry[1];
-      var pct = Math.round((count / total) * 100);
+      var pct = Math.max(3, Math.round((count / total) * 100));
       var row = document.createElement("div");
       row.className = "bar-row";
       row.innerHTML =
         '<span class="label">' + esc(label) + '</span>' +
-        '<span class="bar-track"><span class="bar-fill" style="width:0%"></span></span>' +
+        '<span class="bar-track"><span class="bar-fill" style="width:' + pct + '%"></span></span>' +
         '<span class="val">' + count + '</span>';
       container.appendChild(row);
-      setTimeout(function () {
-        row.querySelector(".bar-fill").style.width = pct + "%";
-      }, 60 + i * 60);
     });
   }
 
@@ -441,11 +466,11 @@
       );
       offset += len;
     });
-    var svg = '<svg width="140" height="140" viewBox="0 0 120 120">' + svgParts.join("") +
+    var svg = '<div class="donut-svg-box"><svg width="140" height="140" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" style="width:140px;height:140px;display:block;">' + svgParts.join("") +
       '<circle cx="60" cy="60" r="34" fill="var(--white)"></circle>' +
       '<text x="60" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="18" font-weight="600" fill="#1E2A22">' + total + '</text>' +
       '<text x="60" y="72" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" fill="#4b5a4f">usaha</text>' +
-      '</svg>';
+      '</svg></div>';
 
     var legend = '<ul class="donut-legend">' + entries.map(function (entry, i) {
       var pct = Math.round((entry[1] / total) * 100);

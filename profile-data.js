@@ -45,12 +45,6 @@ var KELURAHAN_PROFILE = {
     "Meningkatkan kesejahteraan masyarakat melalui pengembangan potensi ekonomi lokal.",
     "Memperkuat tata kelola pemerintahan yang akuntabel dan profesional."
   ],
-  inovasi: [
-    { judul: "Gerakan MABESSA", desc: "Majjelling Wattang Bersih Sampah — peningkatan kesadaran masyarakat dalam pengelolaan dan kebersihan lingkungan." },
-    { judul: "Digitalisasi UMKM", desc: "Pendampingan pelaku usaha memanfaatkan teknologi digital untuk promosi dan pemasaran produk." },
-    { judul: "Urban Farming Hidroponik", desc: "Pemanfaatan lahan terbatas untuk budidaya tanaman hidroponik guna mendukung ketahanan pangan keluarga." },
-    { judul: "Lubang Biopori", desc: "Peningkatan resapan air dan pengurangan genangan di lingkungan permukiman." }
-  ],
   struktur: {
     lurah: { nama: "Herman Ompo, S.Pd.", jabatan: "Lurah", nip: "19800902 200701 1 012" },
     sekretaris: { nama: "Suhra Bahar, S.IP.", jabatan: "Sekretaris Lurah", nip: "19790602 200212 2 005",

@@ -11,23 +11,18 @@
 
 <a href="#main" class="skip-link">Langsung ke isi utama</a>
 
-<!-- ===== Logo strip ===== -->
-<div class="logo-strip">
-  <div class="container">
-    <img src="assets/logo-unhas.png" alt="Universitas Hasanuddin">
-    <img src="assets/logo-diktisaintek.png" alt="Diktisaintek Berdampak">
-    <img src="assets/logo-sdgs.png" alt="Sustainable Development Goals">
-    <img src="assets/logo-kkn-unhas.png" alt="KKN Universitas Hasanuddin — Mengabdi Untuk Negeri">
-    <img src="assets/logo-sidrap.png" alt="Kabupaten Sidenreng Rappang">
-    <img src="assets/logo-kkn-majjelling.png" alt="KKN Unhas Gelombang 116 Tematik UMKM Kelurahan Majjelling Wattang">
-  </div>
-</div>
-
 <!-- ===== Header / Nav ===== -->
 <header class="site-header">
   <div class="nav-wrap">
     <a href="#" class="brand">
-      <span class="brand-mark">MW</span>
+      <span class="brand-logos">
+        <img src="assets/logo-unhas.png" alt="Universitas Hasanuddin">
+        <img src="assets/logo-diktisaintek.png" alt="Diktisaintek Berdampak">
+        <img src="assets/logo-sdgs.png" alt="SDGs">
+        <img src="assets/logo-kkn-unhas.png" alt="KKN Universitas Hasanuddin">
+        <img src="assets/logo-sidrap.png" alt="Kabupaten Sidenreng Rappang">
+        <img src="assets/logo-kkn-majjelling.png" alt="KKN Unhas Gel. 116 Majjelling Wattang">
+      </span>
       <span class="brand-text">
         <strong>Majjelling Wattang</strong>
         <span>Kec. Maritengngae · Kab. Sidrap</span>
@@ -54,8 +49,9 @@
   <div class="container">
     <div>
       <span class="eyebrow">Kelurahan Majjelling Wattang</span>
-      <h1>Menumbuhkan usaha warga,<br><em>seperti padi menumbuhkan sawah.</em></h1>
-      <p class="lede">Portal resmi profil dan direktori Usaha Mikro, Kecil, dan Menengah (UMKM) Kelurahan Majjelling Wattang, Kecamatan Maritengngae, Kabupaten Sidenreng Rappang — dari toko kelontong, kuliner rumahan, hingga kerajinan warga.</p>
+      <h1>MAPPASITURU</h1>
+      <p class="hero-subtitle">Pembuatan Website Pusat Informasi dan Promosi UMKM Kelurahan Majjelling Wattang</p>
+      <p class="lede">Sebagai program kerja kelompok, kami mengusung <strong>MAPPASITURU</strong>, yang dalam bahasa Bugis bermakna menyatukan, menghubungkan, atau berjalan bersama. Nama ini kami pilih karena mencerminkan tujuan website sebagai wadah yang menghubungkan pemerintah kelurahan, pelaku UMKM, dan masyarakat dalam satu platform digital.</p>
       <div class="hero-cta">
         <a href="#umkm" class="btn btn-primary">Jelajahi Direktori UMKM</a>
         <a href="#profil" class="btn btn-ghost">Profil Kelurahan</a>
@@ -143,12 +139,6 @@
       <ul class="misi-list" id="misiList"></ul>
     </div>
 
-    <!-- Inovasi -->
-    <div style="margin-top:48px;">
-      <h3 style="font-size:1.15rem;">Inovasi Kelurahan</h3>
-      <div class="inovasi-grid" id="inovasiGrid"></div>
-    </div>
-
     <!-- Struktur Organisasi -->
     <div style="margin-top:56px;">
       <div class="section-head" style="margin-bottom:8px;">
@@ -181,6 +171,9 @@
       </div>
       <select class="filter-select" id="filterJenis" aria-label="Filter kategori usaha">
         <option value="">Semua Kategori</option>
+      </select>
+      <select class="filter-select" id="filterLingkungan" aria-label="Filter lingkungan">
+        <option value="">Semua Lingkungan</option>
       </select>
       <select class="filter-select" id="filterLegal" aria-label="Filter legalitas">
         <option value="">Semua Status Legalitas</option>
@@ -263,14 +256,45 @@
       <h2>Kontak Kelurahan</h2>
       <p>Untuk informasi lebih lanjut mengenai data UMKM atau layanan kelurahan.</p>
     </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <h4>Kantor Kelurahan Majjelling Wattang</h4>
-        <p>Jl. Mawar, Kec. Maritengngae, Kab. Sidenreng Rappang, Sulawesi Selatan 91611</p>
+    <div class="contact-layout">
+      <div class="contact-cards">
+        <div class="contact-card">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <div>
+            <h4>Alamat</h4>
+            <p>Jl. Anggrek, Pangkajene, Majjelling Wattang, Kec. Maritengngae, Kab. Sidenreng Rappang, Sulawesi Selatan 91611</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          </span>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:majetang731407@gmail.com" class="contact-link">majetang731407@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          <div>
+            <h4>Jam Layanan</h4>
+            <p>Senin – Jum'at, 08.00 – 16.00 WITA</p>
+          </div>
+        </div>
+        <a href="https://maps.app.goo.gl/GjVEYovQXBL2AMvCA" target="_blank" rel="noopener" class="maps-link" style="margin-top:4px;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Buka Lokasi di Google Maps
+        </a>
       </div>
-      <div class="contact-card">
-        <h4>Jam Layanan</h4>
-        <p>Senin – Jumat, 08.00 – 16.00 WITA</p>
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps?q=Kantor+Kelurahan+Majjelling+Wattang,+Jl+Anggrek,+Pangkajene,+Sidenreng+Rappang&output=embed"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="Peta Lokasi Kelurahan Majjelling Wattang"></iframe>
       </div>
     </div>
   </div>
