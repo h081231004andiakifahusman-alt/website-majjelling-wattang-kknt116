@@ -253,7 +253,7 @@ nav.main-nav a.active {
   font-size: 1.15rem;
   color: var(--padi-light);
   font-weight: 600;
-  max-width: 40ch;
+  max-width: 60ch;
   margin: 0 0 0.7em;
 }
 .hero p.lede {
