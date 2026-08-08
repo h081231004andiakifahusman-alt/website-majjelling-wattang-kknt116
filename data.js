@@ -207,7 +207,7 @@ var UMKM_DATA = [
     "omzet_kategori": "Rp1.000.000 – Rp5.000.000"
   },
   {
-    "nama_usaha": "Dapur Qiana Mini ATM",
+    "nama_usaha": "Dapoer Qiana Mini ATM",
     "pemilik": "Niar",
     "gender": "Perempuan",
     "alamat": "Jl. Anggrek, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -636,7 +636,7 @@ var UMKM_DATA = [
     "omzet_kategori": "< Rp1.000.000"
   },
   {
-    "nama_usaha": "Shang coffee.idn",
+    "nama_usaha": "Shangcoffee.idn",
     "pemilik": "Fahri Putra Wijaya",
     "gender": "Laki-laki",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -666,7 +666,7 @@ var UMKM_DATA = [
     "omzet_kategori": "Rp1.000.000 – Rp5.000.000"
   },
   {
-    "nama_usaha": "Smoothis Sultan",
+    "nama_usaha": "Smoothies Sultan",
     "pemilik": "Nurhana",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
