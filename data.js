@@ -130,13 +130,16 @@ var UMKM_DATA = [
     "legalitas_narasi": "Usaha ini belum memiliki PIRT, merek dagang, maupun NPWP. Kondisi tersebut menunjukkan bahwa aspek legalitas masih menjadi hal yang perlu dibenahi agar usaha lebih siap berkembang secara formal dan memiliki kepercayaan yang lebih kuat dari konsumen.",
     "pemasaran_narasi": "Pemasaran dilakukan melalui penjualan di toko, dari rumah, menitipkan produk di warung, serta melalui penjualan online. Media digital yang digunakan meliputi WhatsApp, Facebook, dan Instagram. Pola pemasaran ini menunjukkan bahwa usaha telah memanfaatkan saluran promosi yang cukup beragam untuk menjangkau konsumen.",
     "kondisi_narasi": "Kendala utama yang dihadapi adalah pemasaran. Untuk pengembangan usaha, pelaku usaha membutuhkan penguatan pada aspek branding produk. Kebutuhan ini relevan untuk memperkuat identitas produk dan meningkatkan daya saing di pasar.",
-    "legalitas_dimiliki": [],
+    "legalitas_dimiliki": [
+      "NIB",
+      "Sertifikat Halal"
+    ],
     "legalitas_belum": [
       "Merek Dagang",
       "NPWP",
       "PIRT"
     ],
-    "legalitas_status": "belum",
+    "legalitas_status": "sebagian",
     "kategori": "Kuliner",
     "lingkungan": "Lingkungan 1",
     "tahun_berdiri_num": 2020,
@@ -214,18 +217,19 @@ var UMKM_DATA = [
     "tahun_berdiri": "2024",
     "tenaga_kerja": "2–5 orang",
     "omzet": "kurang dari Rp1.000.000",
-    "legalitas_narasi": "Berdasarkan data yang tersedia, usaha ini belum memiliki NIB, sertifikat halal, PIRT, merek dagang, maupun NPWP. Kondisi tersebut menunjukkan bahwa aspek legalitas masih perlu menjadi perhatian utama agar usaha memiliki fondasi administratif yang lebih kuat.",
+    "legalitas_narasi": "Berdasarkan data yang tersedia, usaha ini belum memiliki PIRT, merek dagang, maupun NPWP. Kondisi tersebut menunjukkan bahwa aspek legalitas masih perlu menjadi perhatian utama agar usaha memiliki fondasi administratif yang lebih kuat.",
     "pemasaran_narasi": "Pemasaran dilakukan melalui penjualan di toko dan dari rumah, dengan dukungan WhatsApp sebagai media komunikasi. Strategi ini menunjukkan bahwa usaha memanfaatkan media sederhana untuk mendukung interaksi dengan pelanggan.",
     "kondisi_narasi": "Kendala utama yang dihadapi adalah legalitas usaha. Untuk pengembangan usaha, tidak terdapat kebutuhan khusus yang disampaikan. Meskipun demikian, pengurusan legalitas tetap dapat menjadi langkah penting bagi keberlanjutan usaha.",
-    "legalitas_dimiliki": [],
-    "legalitas_belum": [
-      "Merek Dagang",
+    "legalitas_dimiliki": [
       "NIB",
-      "NPWP",
-      "PIRT",
       "Sertifikat Halal"
     ],
-    "legalitas_status": "belum",
+    "legalitas_belum": [
+      "Merek Dagang",
+      "NPWP",
+      "PIRT"
+    ],
+    "legalitas_status": "sebagian",
     "kategori": "Jasa",
     "lingkungan": "Lingkungan 1",
     "tahun_berdiri_num": 2024,
@@ -471,7 +475,7 @@ var UMKM_DATA = [
       "PIRT",
       "Merek Dagang"
     ],
-    "legalitas_status": "belum",
+    "legalitas_status": "sebagian",
     "kategori": "Kuliner",
     "lingkungan": "Lingkungan 2",
     "tahun_berdiri_num": 2024,
@@ -561,7 +565,7 @@ var UMKM_DATA = [
       "NPWP",
       "PIRT"
     ],
-    "legalitas_status": "belum",
+    "legalitas_status": "sebagian",
     "kategori": "Kuliner",
     "lingkungan": "Lingkungan 2",
     "tahun_berdiri_num": 2026,
@@ -611,17 +615,17 @@ var UMKM_DATA = [
     "tahun_berdiri": "2026",
     "tenaga_kerja": "2–5 orang",
     "omzet": "kurang dari Rp1.000.000",
-    "legalitas_narasi": "Usaha ini telah memiliki NIB, sertifikat halal, PIRT, merek dagang, dan NPWP belum tampak lengkap pada data. Secara umum, legalitasnya masih perlu dilengkapi agar lebih kuat secara administratif.",
+    "legalitas_narasi": "Usaha ini telah memiliki NIB dan sertifikat halal. Namun, PIRT, Merek dagang, dan NPWP belum tampak lengkap pada data. Secara umum, legalitasnya masih perlu dilengkapi agar lebih kuat secara administratif.",
     "pemasaran_narasi": "Penjualan dilakukan melalui toko, dari rumah, dan online. Media digital yang digunakan adalah WhatsApp. Pola ini menunjukkan usaha sudah memakai jalur online, tetapi masih sederhana.",
     "kondisi_narasi": "Kendala utama yang dihadapi adalah modal, pemasaran, peralatan produksi, dan bahan baku gas. Untuk pengembangan usaha, dibutuhkan bantuan permodalan. Dukungan ini penting agar usaha lebih stabil dalam operasional harian.",
     "legalitas_dimiliki": [
       "NIB",
-      "Sertifikat Halal",
-      "PIRT"
+      "Sertifikat Halal"
     ],
     "legalitas_belum": [
       "Merek Dagang",
-      "NPWP"
+      "NPWP",
+      "PIRT"
     ],
     "legalitas_status": "sebagian",
     "kategori": "Kuliner",
@@ -946,16 +950,19 @@ var UMKM_DATA = [
     "tahun_berdiri": "tidak tercantum",
     "tenaga_kerja": "6–10 orang",
     "omzet": "lebih dari Rp10.000.000",
-    "legalitas_narasi": "Pada data yang terlihat, legalitas usaha belum tercantum lengkap seperti PIRT, merek dagang, dan NPWP. Hal ini berarti aspek administratif masih perlu dilengkapi.",
+    "legalitas_narasi": "Pada data yang terlihat, legalitas usaha belum tercantum lengkap seperti PIRT dan NPWP. Hal ini berarti aspek administratif masih perlu dilengkapi.",
     "pemasaran_narasi": "Penjualan dilakukan melalui toko dan dari rumah. Media digital yang digunakan adalah WhatsApp. Dengan omzet yang cukup tinggi, penggunaan media digital ini bisa menjadi modal untuk penguatan promosi.",
     "kondisi_narasi": "Kendala utama yang dihadapi adalah pemasaran. Untuk pengembangan usaha, dibutuhkan pelatihan digital marketing. Kebutuhan ini selaras dengan potensi usaha yang sudah memiliki skala tenaga kerja cukup besar.",
-    "legalitas_dimiliki": [],
-    "legalitas_belum": [
+    "legalitas_dimiliki": [
+      "NIB",
       "Merek Dagang",
+      "Sertifikat Halal"
+    ],
+    "legalitas_belum": [
       "NPWP",
       "PIRT"
     ],
-    "legalitas_status": "belum",
+    "legalitas_status": "sebagian",
     "kategori": "Kuliner",
     "lingkungan": "Lingkungan 1",
     "tahun_berdiri_num": null,
