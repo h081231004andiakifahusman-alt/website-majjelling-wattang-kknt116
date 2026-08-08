@@ -501,4 +501,22 @@
     var chartLegalEl = document.getElementById("chartLegal");
     if (chartLegalEl) renderDonut(chartLegalEl, legalMap, total);
   }
+
+/* ---------------- Galeri: carousel geser kiri/kanan ---------------- */
+  var galTrack = document.getElementById("galTrack");
+  var galPrev = document.getElementById("galPrev");
+  var galNext = document.getElementById("galNext");
+  if (galTrack && galPrev && galNext) {
+    var scrollStep = function () {
+      var item = galTrack.querySelector(".carousel-item");
+      var gap = 18;
+      return item ? item.getBoundingClientRect().width + gap : 300;
+    };
+    galNext.addEventListener("click", function () {
+      galTrack.scrollBy({ left: scrollStep(), behavior: "smooth" });
+    });
+    galPrev.addEventListener("click", function () {
+      galTrack.scrollBy({ left: -scrollStep(), behavior: "smooth" });
+    });
+  }
 })();
