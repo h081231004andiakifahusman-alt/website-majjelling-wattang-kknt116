@@ -889,7 +889,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Aliqa",
-    "foto": "assets/foto25.jpeg",
+    "foto": "assets/aliqa.jpeg",
     "pemilik": "Saprida",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -917,7 +917,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Nur",
-    "foto": "assets/foto26.jpeg",
+    "foto": "assets/nur.jpeg",
     "pemilik": "Asrina",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
