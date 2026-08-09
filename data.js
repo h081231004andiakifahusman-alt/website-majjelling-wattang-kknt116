@@ -1,6 +1,7 @@
 var UMKM_DATA = [
   {
     "nama_usaha": "Percetakan Qiana Konveksi dan Sablon",
+    "foto": "assets/percetakan-qiana.jpg",
     "pemilik": "Jasnawiah",
     "gender": "Perempuan",
     "alamat": "Jl. Mawar, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -30,6 +31,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Surianti",
+    "foto": "assets/toko-surianti.jpg",
     "pemilik": "Surianti",
     "gender": "Perempuan",
     "alamat": "Jl. Melati, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan, Lorong Masuk Gudang Cahaya Nabila",
@@ -58,6 +60,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Samosa-Na Sidenreng",
+    "foto": "assets/samosa.jpg",
     "pemilik": "Hj. Mini",
     "gender": "Perempuan",
     "alamat": "Jl. Ganggawa, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -89,6 +92,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Hijrah",
+    "foto": "assets/toko-hijrah.jpeg",
     "pemilik": "Hijrah",
     "gender": "Perempuan",
     "alamat": "Jl. Veteran, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -118,6 +122,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Pempek Mak Ifah",
+    "foto": "assets/pempek.jpg",
     "pemilik": "Syarifah",
     "gender": "Perempuan",
     "alamat": "Jl. Ganggawa, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -149,6 +154,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Lia Cake",
+    "foto": "assets/lia.jpg",
     "pemilik": "Liawati",
     "gender": "Perempuan",
     "alamat": "Jl. Ganggawa, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan, belakang Kedai Firdah",
@@ -180,6 +186,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Kios Dafa Dafin",
+    "foto": "assets/dafadafin.jpg",
     "pemilik": "Supriadi",
     "gender": "Laki-laki",
     "alamat": "Jl. Anggrek, MajjellinG Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -208,6 +215,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Dapoer Qiana Mini ATM",
+    "foto": "assets/dapoer-qiana.jpeg",
     "pemilik": "Niar",
     "gender": "Perempuan",
     "alamat": "Jl. Anggrek, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -239,6 +247,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Nuril",
+    "foto": "assets/nuril.jpeg",
     "pemilik": "Sartika",
     "gender": "Perempuan",
     "alamat": "Jl. Melati, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -270,6 +279,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Mutiah Mukti",
+    "foto": "assets/mutia.jpg",
     "pemilik": "Hj. Masriani",
     "gender": "Perempuan",
     "alamat": "Jl. Melati, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -301,6 +311,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Suci",
+    "foto": "assets/suci.jpg",
     "pemilik": "Rasyidin",
     "gender": "Laki-laki",
     "alamat": "Jl. Melati, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan, depan Masjid Al Husna",
@@ -332,6 +343,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Alo Kopi",
+    "foto": "assets/alo.jpg",
     "pemilik": "Suratman",
     "gender": "Laki-laki",
     "alamat": "Jl. Anggrek, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan, depan Masjid Al-Husna",
@@ -362,6 +374,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": 'Depot Air Minum "Harun Water"',
+    "foto": "assets/galon.jpg",
     "pemilik": "Harman",
     "gender": "Laki-laki",
     "alamat": "Jl. Anggrek, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -393,6 +406,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Nasi Goreng Mas Alfin",
+    "foto": "assets/nasgor.png",
     "pemilik": "Ilaluddin",
     "gender": "Laki-laki",
     "alamat": "Jl. Jendral Sudirman, Majjelling Wattang, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -424,6 +438,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Dapur Mamud 17",
+    "foto": "assets/mamud.jpeg",
     "pemilik": "Milda",
     "gender": "Perempuan",
     "alamat": "Jl. Jendral Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -454,6 +469,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Sweet Drink",
+    "foto": "assets/sweetdrink.jpg",
     "pemilik": "Nur Ismayani",
     "gender": "Perempuan",
     "alamat": "Jl. Jeendral Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -485,6 +501,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Rumah Manisan A.R",
+    "foto": "assets/manisan.jpeg",
     "pemilik": "Ria",
     "gender": "Perempuan",
     "alamat": "Jl. Jendral Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -515,6 +532,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Kedai Hatimah",
+    "foto": "assets/hatimah.jpeg",
     "pemilik": "Hatimah",
     "gender": "Perempuan",
     "alamat": "Jl. Jendral Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -545,6 +563,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Kedai Ameera",
+    "foto": "assets/ameera.jpeg",
     "pemilik": "Satriani",
     "gender": "Perempuan",
     "alamat": "Jl. Jendal Sudirman, Maritengngae, Sidrap, Sulawesi Selatan",
@@ -575,6 +594,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Rumah Makan Sinar Agung",
+    "foto": "assets/sinar.jpg",
     "pemilik": "Hj. Salmiati",
     "gender": "Perempuan",
     "alamat": "Jl. Jendral Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -606,6 +626,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Kedai 33",
+    "foto": "assets/kedai33.jpg",
     "pemilik": "Faisal",
     "gender": "Laki-laki",
     "alamat": "Jl. Jendral Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -637,6 +658,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Shangcoffee.idn",
+    "foto": "assets/shang.jpg",
     "pemilik": "Fahri Putra Wijaya",
     "gender": "Laki-laki",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -667,7 +689,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Smoothies Sultan",
-    "foto": "assets/foto17.jpg",
+    "foto": "assets/smoothies.jpg",
     "pemilik": "Nurhana",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -698,6 +720,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Anugrah",
+    "foto": "assets/anugrah.jpeg",
     "pemilik": "Hj. Jumiati",
     "gender": "Perempuan",
     "alamat": "Jl. Veteran, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -725,6 +748,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Uwaisyah",
+    "foto": "assets/uwais.jpeg",
     "pemilik": "Ismayana",
     "gender": "Perempuan",
     "alamat": "Jl. Veteran, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -753,6 +777,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Husna",
+    "foto": "assets/foto20.jpeg",
     "pemilik": "Husna",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -780,6 +805,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Nabila",
+    "foto": "assets/foto21.jpeg",
     "pemilik": "Hj. Pahima",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -807,6 +833,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Mirza",
+    "foto": "assets/foto22.jpeg",
     "pemilik": "Hj. Asma",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -834,6 +861,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Diana",
+    "foto": "assets/foto23.jpeg",
     "pemilik": "Mardiana",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -861,6 +889,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Aliqa",
+    "foto": "assets/foto25.jpeg",
     "pemilik": "Saprida",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -888,6 +917,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Nur",
+    "foto": "assets/foto26.jpeg",
     "pemilik": "Asrina",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -915,6 +945,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Toko Aprilia",
+    "foto": "assets/foto27.jpeg",
     "pemilik": "Samriani",
     "gender": "Perempuan",
     "alamat": "Jl. Anggrek, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -942,6 +973,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Es Teh Poci Outlet Nystic Elyuna",
+    "foto": "assets/tehpoci.jpeg",
     "pemilik": "Nolan",
     "gender": "Laki-laki",
     "alamat": "Jl. Ganggawa, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -973,6 +1005,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Roti Bakar Bandung",
+    "foto": "assets/roti.jpeg",
     "pemilik": "Anti",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
@@ -1003,6 +1036,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Jalangkote Mawar",
+    "foto": "assets/jalangkote.jpeg",
     "pemilik": "Hj. Mahyani",
     "gender": "Perempuan",
     "alamat": "Jl. Mawar, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
