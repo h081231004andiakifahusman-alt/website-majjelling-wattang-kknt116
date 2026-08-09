@@ -517,7 +517,7 @@
 
   function renderDonut(container, map, total) {
     var entries = Object.keys(map).map(function (k) { return [k, map[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
-    var r = 52, cx = 60, cy = 60, circumference = 2 * Math.PI * r;
+    var r = 60, cx = 70, cy = 70, circumference = 2 * Math.PI * r;
     var offset = 0;
     var svgParts = [];
     entries.forEach(function (entry, i) {
@@ -526,15 +526,15 @@
       var len = frac * circumference;
       svgParts.push(
         '<circle class="donut-seg" data-idx="' + i + '" cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="' + PALETTE[i % PALETTE.length] +
-        '" stroke-width="18" stroke-dasharray="' + len + ' ' + (circumference - len) +
+        '" stroke-width="20" stroke-dasharray="' + len + ' ' + (circumference - len) +
         '" stroke-dashoffset="' + (-offset) + '" transform="rotate(-90 ' + cx + ' ' + cy + ')" style="cursor:pointer; transition: stroke-width 0.15s;"></circle>'
       );
       offset += len;
     });
-    var svg = '<div class="donut-svg-box"><svg width="140" height="140" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" style="width:140px;height:140px;display:block;">' + svgParts.join("") +
-      '<circle cx="60" cy="60" r="34" fill="var(--white)"></circle>' +
-      '<text x="60" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="18" font-weight="600" fill="#1E2A22">' + total + '</text>' +
-      '<text x="60" y="72" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9" fill="#4b5a4f">usaha</text>' +
+    var svg = '<div class="donut-svg-box"><svg width="140" height="140" viewBox="0 0 140 140" style="width:140px;height:140px;display:block;">' + svgParts.join("") +
+      '<circle cx="70" cy="70" r="42" fill="var(--white)"></circle>' +
+      '<text x="70" y="66" text-anchor="middle" font-family="IBM Plex Mono" font-size="20" font-weight="600" fill="#1E2A22">' + total + '</text>' +
+      '<text x="70" y="84" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="10" fill="#4b5a4f">usaha</text>' +
       '</svg></div>';
 
     var legend = '<ul class="donut-legend">' + entries.map(function (entry, i) {
@@ -554,13 +554,13 @@
       [seg, legendItem].forEach(function (el) {
         if (!el) return;
         el.addEventListener("mouseenter", function (e) {
-          if (seg) seg.setAttribute("stroke-width", "22");
+          if (seg) seg.setAttribute("stroke-width", "24");
           if (legendItem) legendItem.classList.add("legend-hover");
           showTooltip(tipHtml, e);
         });
         el.addEventListener("mousemove", positionTooltip);
         el.addEventListener("mouseleave", function () {
-          if (seg) seg.setAttribute("stroke-width", "18");
+          if (seg) seg.setAttribute("stroke-width", "20");
           if (legendItem) legendItem.classList.remove("legend-hover");
           hideTooltip();
         });
