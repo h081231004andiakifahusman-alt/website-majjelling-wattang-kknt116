@@ -226,7 +226,11 @@ nav.main-nav a.active {
   position: relative;
   background:
     radial-gradient(ellipse 900px 500px at 85% -10%, rgba(201,162,39,0.28), transparent 60%),
-    linear-gradient(180deg, var(--sawah-deep) 0%, var(--sawah) 100%);
+    linear-gradient(180deg, rgba(26,42,32,0.88) 0%, rgba(47,74,55,0.86) 100%),
+    url('assets/kantor-lurah.png');
+  background-size: auto, auto, cover;
+  background-position: center, center, center 65%;
+  background-repeat: no-repeat;
   color: var(--white);
   overflow: hidden;
 }
@@ -468,7 +472,7 @@ section.tight { padding: 56px 0; }
   font-size: 1.1rem;
 }
 .filter-select {
-  padding: 10px 14px;
+  padding: 10px 34px 10px 14px;
   border-radius: 10px;
   border: 1.5px solid var(--line);
   background: var(--paper-soft);
@@ -476,6 +480,20 @@ section.tight { padding: 56px 0; }
   font-weight: 600;
   font-size: 0.88rem;
   color: var(--sawah-deep);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232F4A37' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.filter-select:hover { border-color: var(--padi); }
+.filter-select:focus {
+  outline: none;
+  border-color: var(--padi);
+  box-shadow: 0 0 0 3px rgba(201,162,39,0.25);
 }
 .result-count {
   font-family: var(--font-mono);
@@ -735,6 +753,15 @@ section.tight { padding: 56px 0; }
   scroll-snap-align: start;
   border-radius: var(--radius);
   object-fit: cover;
+  opacity: 0.55;
+  transform: scale(0.94);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  box-shadow: none;
+}
+.carousel-item.active {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: var(--shadow-lift);
 }
 img.carousel-item { display: block; }
 .gallery-placeholder {
@@ -1176,11 +1203,18 @@ footer.site-footer {
 }
 .modal-header {
   background: linear-gradient(155deg, var(--sawah-deep), var(--sawah));
+  background-size: cover;
+  background-position: center;
   color: var(--white);
   padding: 28px 26px 22px;
   position: sticky;
   top: 0;
   z-index: 2;
+}
+.modal-header.has-photo {
+  background-image:
+    linear-gradient(155deg, rgba(26,42,32,0.86), rgba(47,74,55,0.82)),
+    var(--modal-photo);
 }
 .modal-close {
   position: absolute;
@@ -1266,6 +1300,7 @@ footer.site-footer {
 .maps-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background: var(--air);
   color: var(--white);

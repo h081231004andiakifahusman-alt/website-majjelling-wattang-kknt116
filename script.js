@@ -368,10 +368,12 @@
 
   /* ---------------- Modal detail UMKM ---------------- */
   var modalOverlay = document.getElementById("modalOverlay");
+  var modalHeaderEl = document.querySelector(".modal-header");
   var modalClose = document.getElementById("modalClose");
   var modalTag = document.getElementById("modalTag");
   var modalTitle = document.getElementById("modalTitle");
   var modalOwner = document.getElementById("modalOwner");
+
   var modalBody = document.getElementById("modalBody");
   var lastFocused = null;
 
@@ -383,6 +385,13 @@
     modalTag.textContent = d.kategori || "Lainnya";
     modalTitle.textContent = d.nama_usaha;
     modalOwner.textContent = titleCase(d.pemilik) + (d.gender ? " · " + titleCase(d.gender) : "");
+    if (d.foto) {
+      modalHeaderEl.classList.add("has-photo");
+      modalHeaderEl.style.setProperty("--modal-photo", "url('" + d.foto + "')");
+    } else {
+      modalHeaderEl.classList.remove("has-photo");
+      modalHeaderEl.style.removeProperty("--modal-photo");
+    }
 
     var have = d.legalitas_dimiliki || [];
     var badges = ALL_LEGAL_KEYS.map(function (key) {
@@ -606,5 +615,32 @@
     galPrev.addEventListener("click", function () {
       galTrack.scrollBy({ left: -scrollStep(), behavior: "smooth" });
     });
+
+    var galItems = Array.prototype.slice.call(galTrack.querySelectorAll(".carousel-item"));
+    var tickingGal = false;
+    function updateActiveGalleryItem() {
+      var trackRect = galTrack.getBoundingClientRect();
+      var trackCenter = trackRect.left + trackRect.width / 2;
+      var closest = null;
+      var closestDist = Infinity;
+      galItems.forEach(function (item) {
+        var r = item.getBoundingClientRect();
+        var itemCenter = r.left + r.width / 2;
+        var dist = Math.abs(itemCenter - trackCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = item;
+        }
+      });
+      galItems.forEach(function (item) { item.classList.toggle("active", item === closest); });
+      tickingGal = false;
+    }
+    galTrack.addEventListener("scroll", function () {
+      if (!tickingGal) {
+        tickingGal = true;
+        requestAnimationFrame(updateActiveGalleryItem);
+      }
+    });
+    updateActiveGalleryItem();
   }
 })();

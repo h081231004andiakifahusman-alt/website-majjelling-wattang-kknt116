@@ -667,6 +667,7 @@ var UMKM_DATA = [
   },
   {
     "nama_usaha": "Smoothies Sultan",
+    "foto": "assets/foto17.jpg",
     "pemilik": "Nurhana",
     "gender": "Perempuan",
     "alamat": "Jl. Jend. Sudirman, Kec. Maritengngae, Kab. Sidrap, Sulawesi Selatan",
