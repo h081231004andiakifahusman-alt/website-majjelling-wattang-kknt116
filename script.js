@@ -462,6 +462,30 @@
     return map;
   }
 
+ /* ---------------- Tooltip chart (mengikuti kursor saat hover) ---------------- */
+  var chartTooltip = document.createElement("div");
+  chartTooltip.className = "chart-tooltip";
+  document.body.appendChild(chartTooltip);
+
+  function showTooltip(html, evt) {
+    chartTooltip.innerHTML = html;
+    chartTooltip.classList.add("show");
+    positionTooltip(evt);
+  }
+  function positionTooltip(evt) {
+    var pad = 14;
+    var x = evt.clientX + pad;
+    var y = evt.clientY + pad;
+    var rect = chartTooltip.getBoundingClientRect();
+    if (x + rect.width > window.innerWidth - 8) x = evt.clientX - rect.width - pad;
+    if (y + rect.height > window.innerHeight - 8) y = evt.clientY - rect.height - pad;
+    chartTooltip.style.left = x + "px";
+    chartTooltip.style.top = y + "px";
+  }
+  function hideTooltip() {
+    chartTooltip.classList.remove("show");
+  }
+
   function renderBarChart(container, map, total, orderKeys) {
     var entries = orderKeys
       ? orderKeys.filter(function (k) { return map[k]; }).map(function (k) { return [k, map[k]]; })
@@ -469,6 +493,7 @@
     container.innerHTML = "";
     entries.forEach(function (entry) {
       var label = entry[0], count = entry[1];
+      var pctExact = Math.round((count / total) * 1000) / 10;
       var pct = Math.max(3, Math.round((count / total) * 100));
       var row = document.createElement("div");
       row.className = "bar-row";
@@ -476,6 +501,16 @@
         '<span class="label">' + esc(label) + '</span>' +
         '<span class="bar-track"><span class="bar-fill" style="width:' + pct + '%"></span></span>' +
         '<span class="val">' + count + '</span>';
+      var tipHtml = '<strong>' + esc(label) + '</strong><br>' + count + ' usaha &middot; ' + pctExact + '% dari total';
+      row.addEventListener("mouseenter", function (e) {
+        row.classList.add("bar-row-hover");
+        showTooltip(tipHtml, e);
+      });
+      row.addEventListener("mousemove", positionTooltip);
+      row.addEventListener("mouseleave", function () {
+        row.classList.remove("bar-row-hover");
+        hideTooltip();
+      });
       container.appendChild(row);
     });
   }
@@ -490,9 +525,9 @@
       var frac = count / total;
       var len = frac * circumference;
       svgParts.push(
-        '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="' + PALETTE[i % PALETTE.length] +
+        '<circle class="donut-seg" data-idx="' + i + '" cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="' + PALETTE[i % PALETTE.length] +
         '" stroke-width="18" stroke-dasharray="' + len + ' ' + (circumference - len) +
-        '" stroke-dashoffset="' + (-offset) + '" transform="rotate(-90 ' + cx + ' ' + cy + ')"></circle>'
+        '" stroke-dashoffset="' + (-offset) + '" transform="rotate(-90 ' + cx + ' ' + cy + ')" style="cursor:pointer; transition: stroke-width 0.15s;"></circle>'
       );
       offset += len;
     });
@@ -504,11 +539,34 @@
 
     var legend = '<ul class="donut-legend">' + entries.map(function (entry, i) {
       var pct = Math.round((entry[1] / total) * 100);
-      return '<li><span class="dot" style="background:' + PALETTE[i % PALETTE.length] + '"></span>' +
+      return '<li data-idx="' + i + '"><span class="dot" style="background:' + PALETTE[i % PALETTE.length] + '"></span>' +
         esc(entry[0]) + ' — ' + entry[1] + ' (' + pct + '%)</li>';
     }).join("") + '</ul>';
 
     container.innerHTML = svg + legend;
+
+    function bindHover(idx) {
+      var seg = container.querySelector('.donut-seg[data-idx="' + idx + '"]');
+      var legendItem = container.querySelector('.donut-legend li[data-idx="' + idx + '"]');
+      var label = entries[idx][0], count = entries[idx][1];
+      var pctExact = Math.round((count / total) * 1000) / 10;
+      var tipHtml = '<strong>' + esc(label) + '</strong><br>' + count + ' usaha &middot; ' + pctExact + '% dari total';
+      [seg, legendItem].forEach(function (el) {
+        if (!el) return;
+        el.addEventListener("mouseenter", function (e) {
+          if (seg) seg.setAttribute("stroke-width", "22");
+          if (legendItem) legendItem.classList.add("legend-hover");
+          showTooltip(tipHtml, e);
+        });
+        el.addEventListener("mousemove", positionTooltip);
+        el.addEventListener("mouseleave", function () {
+          if (seg) seg.setAttribute("stroke-width", "18");
+          if (legendItem) legendItem.classList.remove("legend-hover");
+          hideTooltip();
+        });
+      });
+    }
+    entries.forEach(function (entry, i) { bindHover(i); });
   }
 
   if (data.length) {

@@ -610,6 +610,13 @@ section.tight { padding: 56px 0; }
   gap: 10px;
   margin-bottom: 12px;
   font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.bar-row-hover, .bar-row:hover {
+  background: var(--paper-soft);
 }
 .bar-row .label {
   color: var(--ink);
@@ -629,6 +636,42 @@ section.tight { padding: 56px 0; }
   background: linear-gradient(90deg, var(--padi), var(--clay));
   width: 0%;
   transition: width 1s cubic-bezier(.2,.8,.2,1);
+}
+
+/* ============ Tooltip chart (mengikuti kursor) ============ */
+.chart-tooltip {
+  position: fixed;
+  z-index: 3000;
+  background: var(--sawah-deep);
+  color: var(--white);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-family: var(--font-body);
+  box-shadow: var(--shadow-lift);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.12s, transform 0.12s;
+  white-space: nowrap;
+}
+.chart-tooltip strong { color: var(--padi-light); }
+.chart-tooltip.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.donut-legend li {
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 3px 6px;
+  margin: 0 -6px;
+  transition: background 0.15s;
+}
+.donut-legend li.legend-hover,
+.donut-legend li:hover {
+  background: var(--paper-soft);
 }
 .bar-row .val {
   font-family: var(--font-mono);
