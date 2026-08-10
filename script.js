@@ -619,19 +619,27 @@
     var galItems = Array.prototype.slice.call(galTrack.querySelectorAll(".carousel-item"));
     var tickingGal = false;
     function updateActiveGalleryItem() {
-      var trackRect = galTrack.getBoundingClientRect();
-      var trackCenter = trackRect.left + trackRect.width / 2;
-      var closest = null;
-      var closestDist = Infinity;
-      galItems.forEach(function (item) {
-        var r = item.getBoundingClientRect();
-        var itemCenter = r.left + r.width / 2;
-        var dist = Math.abs(itemCenter - trackCenter);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closest = item;
-        }
-      });
+      var atStart = galTrack.scrollLeft <= 24;
+      var atEnd = galTrack.scrollLeft + galTrack.clientWidth >= galTrack.scrollWidth - 24;
+      var closest;
+      if (atStart) {
+        closest = galItems[0];
+      } else if (atEnd) {
+        closest = galItems[galItems.length - 1];
+      } else {
+        var trackRect = galTrack.getBoundingClientRect();
+        var trackCenter = trackRect.left + trackRect.width / 2;
+        var closestDist = Infinity;
+        galItems.forEach(function (item) {
+          var r = item.getBoundingClientRect();
+          var itemCenter = r.left + r.width / 2;
+          var dist = Math.abs(itemCenter - trackCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = item;
+          }
+        });
+      }
       galItems.forEach(function (item) { item.classList.toggle("active", item === closest); });
       tickingGal = false;
     }
