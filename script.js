@@ -604,51 +604,50 @@
   var galPrev = document.getElementById("galPrev");
   var galNext = document.getElementById("galNext");
   if (galTrack && galPrev && galNext) {
-    var scrollStep = function () {
-      var item = galTrack.querySelector(".carousel-item");
-      var gap = 18;
-      return item ? item.getBoundingClientRect().width + gap : 300;
-    };
-    galNext.addEventListener("click", function () {
-      galTrack.scrollBy({ left: scrollStep(), behavior: "smooth" });
-    });
-    galPrev.addEventListener("click", function () {
-      galTrack.scrollBy({ left: -scrollStep(), behavior: "smooth" });
-    });
-
     var galItems = Array.prototype.slice.call(galTrack.querySelectorAll(".carousel-item"));
-    var tickingGal = false;
-    function updateActiveGalleryItem() {
-      var atStart = galTrack.scrollLeft <= 24;
-      var atEnd = galTrack.scrollLeft + galTrack.clientWidth >= galTrack.scrollWidth - 24;
-      var closest;
-      if (atStart) {
-        closest = galItems[0];
-      } else if (atEnd) {
-        closest = galItems[galItems.length - 1];
-      } else {
-        var trackRect = galTrack.getBoundingClientRect();
-        var trackCenter = trackRect.left + trackRect.width / 2;
-        var closestDist = Infinity;
-        galItems.forEach(function (item) {
-          var r = item.getBoundingClientRect();
-          var itemCenter = r.left + r.width / 2;
-          var dist = Math.abs(itemCenter - trackCenter);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closest = item;
+    var galActiveIdx = 0;
+    var galIsProgrammatic = false;
+    var galProgrammaticTimer = null;
+
+    /* Index aktif disimpan sebagai status tersendiri (bukan dihitung ulang dari
+       posisi scroll setiap saat) -- supaya tombol panah selalu bergerak PERSIS
+       1 foto per klik, termasuk saat berada di dekat foto pertama/terakhir. */
+    function setGalActive(idx) {
+      galActiveIdx = Math.max(0, Math.min(galItems.length - 1, idx));
+      galItems.forEach(function (item, i) { item.classList.toggle("active", i === galActiveIdx); });
+    }
+
+    function goToGalIndex(idx) {
+      idx = Math.max(0, Math.min(galItems.length - 1, idx));
+      setGalActive(idx);
+      galIsProgrammatic = true;
+      galItems[idx].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      clearTimeout(galProgrammaticTimer);
+      galProgrammaticTimer = setTimeout(function () { galIsProgrammatic = false; }, 600);
+    }
+
+    galNext.addEventListener("click", function () { goToGalIndex(galActiveIdx + 1); });
+    galPrev.addEventListener("click", function () { goToGalIndex(galActiveIdx - 1); });
+
+    /* Saat foto digeser manual (drag/trackpad/wheel, bukan lewat tombol),
+       tandai foto yang paling banyak terlihat sebagai foto aktif. Diabaikan
+       selama animasi tombol berlangsung supaya tidak saling menimpa. */
+    galIsProgrammatic = true;
+    if ("IntersectionObserver" in window) {
+      var galObserver = new IntersectionObserver(function (entries) {
+        if (galIsProgrammatic) return;
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            var idx = galItems.indexOf(entry.target);
+            if (idx > -1) setGalActive(idx);
           }
         });
-      }
-      galItems.forEach(function (item) { item.classList.toggle("active", item === closest); });
-      tickingGal = false;
+      }, { root: galTrack, threshold: [0.6] });
+      galItems.forEach(function (item) { galObserver.observe(item); });
     }
-    galTrack.addEventListener("scroll", function () {
-      if (!tickingGal) {
-        tickingGal = true;
-        requestAnimationFrame(updateActiveGalleryItem);
-      }
-    });
-    updateActiveGalleryItem();
+
+    setGalActive(0);
+    clearTimeout(galProgrammaticTimer);
+    galProgrammaticTimer = setTimeout(function () { galIsProgrammatic = false; }, 400);
   }
 })();
